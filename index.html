@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Horizon Academy - Student Directory and Admissions Portal">
+  <title>School Management System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Sticky Header with Navigation -->
+  <header>
+    <nav class="nav-container" aria-label="Main Navigation">
+      <a href="index.html" class="logo" id="logoLink">
+        <span class="logo-icon" aria-hidden="true">H</span>
+        <span>School Management System</span>
+      </a>
+      
+      <ul class="nav-menu">
+        <li>
+          <a href="index.html" class="nav-link active" id="studentDirLink">Student Directory</a>
+        </li>
+        <li>
+          <a href="admin.html" class="nav-link" id="adminPortalLink">Admin Portal</a>
+        </li>
+        <li>
+          <!-- Dark Mode Toggle Button -->
+          <button class="theme-btn" id="themeToggleBtn" aria-label="Toggle Dark Mode" title="Toggle Dark Mode">
+            🌙
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Main Content Layout -->
+  <main>
+    <div class="user-layout">
+      
+      <!-- Left Sidebar: Admission Form -->
+      <section class="card" aria-labelledby="admissionFormTitle">
+        <h2 class="card-title" id="admissionFormTitle">New Admission Form</h2>
+        
+        <form id="admissionForm" novalidate>
+          
+          <!-- 1. Full Name -->
+          <div class="form-group">
+            <label for="studentName" class="form-label">Full Name</label>
+            <input 
+              type="text" 
+              id="studentName" 
+              name="name" 
+              class="form-input" 
+              placeholder="e.g. John Doe"
+              required
+            >
+            <span class="error-text" id="nameError">Full name must be at least 3 characters and alphabetical only.</span>
+          </div>
+
+          <!-- 2. Email Address -->
+          <div class="form-group">
+            <label for="studentEmail" class="form-label">Email Address</label>
+            <input 
+              type="email" 
+              id="studentEmail" 
+              name="email" 
+              class="form-input" 
+              placeholder="e.g. john.doe@example.com"
+              required
+            >
+            <span class="error-text" id="emailError">Please enter a valid email address.</span>
+          </div>
+
+          <!-- 3. Phone Number -->
+          <div class="form-group">
+            <label for="studentPhone" class="form-label">Phone Number</label>
+            <input 
+              type="tel" 
+              id="studentPhone" 
+              name="phone" 
+              class="form-input" 
+              placeholder="e.g. 0300-1234567"
+              required
+            >
+            <span class="error-text" id="phoneError">Format must be: 03xx-xxxxxxx (11 digits with hyphen).</span>
+          </div>
+
+          <!-- 4. Target Grade -->
+          <div class="form-group">
+            <label for="studentGrade" class="form-label">Target Grade / Class</label>
+            <select id="studentGrade" name="grade" class="form-input" required>
+              <option value="" disabled selected>Select Grade</option>
+              <option value="Grade 9">Grade 9</option>
+              <option value="Grade 10">Grade 10</option>
+              <option value="Grade 11">Grade 11</option>
+              <option value="Grade 12">Grade 12</option>
+            </select>
+            <span class="error-text" id="gradeError">Please select a grade.</span>
+          </div>
+
+          <!-- 5. Date of Birth -->
+          <div class="form-group">
+            <label for="studentDob" class="form-label">Date of Birth</label>
+            <input 
+              type="date" 
+              id="studentDob" 
+              name="dob" 
+              class="form-input" 
+              required
+            >
+            <span class="error-text" id="dobError">Student must be between 12 and 20 years old.</span>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" class="btn btn-primary" id="submitBtn">
+            Submit Application
+          </button>
+          
+        </form>
+      </section>
+
+      <!-- Right Main Content: Student Directory -->
+      <section aria-labelledby="directoryTitle">
+        
+        <!-- List Header with title & filters -->
+        <div class="list-header">
+          <h1 class="list-title" id="directoryTitle">Enrolled Students</h1>
+          
+          <div class="filters-wrapper">
+            <!-- Filter by Grade -->
+            <label for="gradeFilter" class="form-label" style="margin-bottom: 0; margin-right: 0.25rem;">Grade:</label>
+            <select id="gradeFilter" class="filter-select" aria-label="Filter students by grade">
+              <option value="All">All Grades</option>
+              <option value="Grade 9">Grade 9</option>
+              <option value="Grade 10">Grade 10</option>
+              <option value="Grade 11">Grade 11</option>
+              <option value="Grade 12">Grade 12</option>
+            </select>
+
+            <!-- Filter by Status -->
+            <label for="statusFilter" class="form-label" style="margin-bottom: 0; margin-right: 0.25rem;">Status:</label>
+            <select id="statusFilter" class="filter-select" aria-label="Filter students by status">
+              <option value="All">All Statuses</option>
+              <option value="Active">Active Only</option>
+              <option value="Pending">Pending Only</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Student Cards Container -->
+        <div id="studentListContainer">
+          <!-- Dynamic Content will be injected here:
+               - Loader State (spinner)
+               - Error State (Red warning card)
+               - Empty State (Illustration/Text)
+               - Data State (Student cards list)
+          -->
+        </div>
+
+      </section>
+    </div>
+  </main>
+
+  <!-- Toast Container for Actions Feedback -->
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+  <!-- User Panel JavaScript file -->
+  <script src="app.js"></script>
+</body>
+</html>
