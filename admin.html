@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Horizon Academy - Admin Management Portal">
+  <title>School Management system</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="admin-theme">
+
+  <!-- Sticky Header with Navigation (Admin Theme: Purple Accent) -->
+  <header>
+    <nav class="nav-container" aria-label="Admin Navigation">
+      <a href="index.html" class="logo" id="logoLink">
+        <span class="logo-icon" aria-hidden="true" style="background-color: var(--accent-color);">H</span>
+        <span>School Management system <span class="admin-badge">Admin</span></span>
+      </a>
+      
+      <ul class="nav-menu">
+        <li>
+          <a href="index.html" class="nav-link" id="studentDirLink">Student Directory</a>
+        </li>
+        <li>
+          <a href="admin.html" class="nav-link active" id="adminPortalLink">Admin Portal</a>
+        </li>
+        <li>
+          <!-- Dark Mode Toggle Button -->
+          <button class="theme-btn" id="themeToggleBtn" aria-label="Toggle Dark Mode" title="Toggle Dark Mode">
+            🌙
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Main Administrative Panel Content -->
+  <main>
+    
+    <!-- 1. Statistics Cards Section (At least 3 summary statistics) -->
+    <section class="stats-grid" aria-label="Directory summary statistics">
+      
+      <!-- Statistic 1: Total Students Enrolled -->
+      <div class="card stat-card">
+        <div class="stat-info">
+          <span class="stat-label">Total Admissions</span>
+          <span class="stat-value" id="statTotalStudents">0</span>
+        </div>
+        <div class="stat-icon" aria-hidden="true">👨‍🎓</div>
+      </div>
+
+      <!-- Statistic 2: Active Student Percentage -->
+      <div class="card stat-card">
+        <div class="stat-info">
+          <span class="stat-label">Active Ratio</span>
+          <span class="stat-value" id="statActiveRate">0%</span>
+        </div>
+        <div class="stat-icon" aria-hidden="true">📈</div>
+      </div>
+
+      <!-- Statistic 3: Average Student Age -->
+      <div class="card stat-card">
+        <div class="stat-info">
+          <span class="stat-label">Average Age</span>
+          <span class="stat-value" id="statAvgAge">0.0 yrs</span>
+        </div>
+        <div class="stat-icon" aria-hidden="true">🎂</div>
+      </div>
+
+    </section>
+
+    <!-- 2. Students Data Management Section -->
+    <section class="card" aria-labelledby="recordsTitle">
+      <div class="list-header" style="margin-bottom: 2rem;">
+        <h1 class="list-title" id="recordsTitle">Manage Student Records</h1>
+        <p style="color: var(--text-secondary); font-size: 0.9rem;">Perform administrative updates, change enrollment statuses, and delete student entries.</p>
+      </div>
+
+      <!-- Admin Student Table Container -->
+      <div id="adminTableContainer">
+        <!-- Dynamic content: Loader, Table grid, or Error banner -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 3. Edit Student Record Modal (Fulfills edit criteria overlay) -->
+  <div class="modal" id="editModal" aria-hidden="true" role="dialog" aria-labelledby="modalTitle">
+    <div class="modal-backdrop" id="modalBackdrop"></div>
+    <div class="modal-content">
+      
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h2 id="modalTitle">Edit Student Details</h2>
+        <button class="modal-close" id="modalCloseBtn" aria-label="Close modal">&times;</button>
+      </div>
+      
+      <!-- Modal Body (Edit Form) -->
+      <div class="modal-body">
+        <form id="editForm" novalidate>
+          
+          <!-- Hidden input holding database resource ID -->
+          <input type="hidden" id="editStudentId">
+
+          <!-- Edit Input 1: Full Name -->
+          <div class="form-group">
+            <label for="editStudentName" class="form-label">Full Name</label>
+            <input 
+              type="text" 
+              id="editStudentName" 
+              class="form-input" 
+              required
+            >
+            <span class="error-text" id="editNameError">Full name must be at least 3 characters and alphabetical only.</span>
+          </div>
+
+          <!-- Edit Input 2: Email -->
+          <div class="form-group">
+            <label for="editStudentEmail" class="form-label">Email Address</label>
+            <input 
+              type="email" 
+              id="editStudentEmail" 
+              class="form-input" 
+              required
+            >
+            <span class="error-text" id="editEmailError">Please enter a valid email address.</span>
+          </div>
+
+          <!-- Edit Input 3: Phone Number -->
+          <div class="form-group">
+            <label for="editStudentPhone" class="form-label">Phone Number</label>
+            <input 
+              type="tel" 
+              id="editStudentPhone" 
+              class="form-input" 
+              placeholder="e.g. 0300-1234567"
+              required
+            >
+            <span class="error-text" id="editPhoneError">Format must be: 03xx-xxxxxxx (11 digits with hyphen).</span>
+          </div>
+
+          <!-- Edit Input 4: Grade -->
+          <div class="form-group">
+            <label for="editStudentGrade" class="form-label">Grade / Class</label>
+            <select id="editStudentGrade" class="form-input" required>
+              <option value="Grade 9">Grade 9</option>
+              <option value="Grade 10">Grade 10</option>
+              <option value="Grade 11">Grade 11</option>
+              <option value="Grade 12">Grade 12</option>
+            </select>
+            <span class="error-text">Please select a grade.</span>
+          </div>
+
+          <!-- Edit Input 5: Date of Birth -->
+          <div class="form-group">
+            <label for="editStudentDob" class="form-label">Date of Birth</label>
+            <input 
+              type="date" 
+              id="editStudentDob" 
+              class="form-input" 
+              required
+            >
+            <span class="error-text" id="editDobError">Student must be between 12 and 20 years old.</span>
+          </div>
+
+          <!-- Edit Input 6: Status (Admin only dropdown) -->
+          <div class="form-group">
+            <label for="editStudentStatus" class="form-label">Enrollment Status</label>
+            <select id="editStudentStatus" class="form-input" required>
+              <option value="Active">Active</option>
+              <option value="Pending">Pending</option>
+              <option value="Suspended">Suspended</option>
+            </select>
+            <span class="error-text">Please select a status.</span>
+          </div>
+
+        </form>
+      </div>
+      
+      <!-- Modal Action Controls -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="modalCancelBtn">Cancel</button>
+        <button type="button" class="btn btn-primary" id="modalSaveBtn" style="width: auto;">Save Changes</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Toast Container for Administrative Feedback Messages -->
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+  <!-- Admin Panel JavaScript logic file -->
+  <script src="admin.js"></script>
+</body>
+</html>
