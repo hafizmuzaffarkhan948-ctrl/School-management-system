@@ -1,0 +1,59 @@
+{
+  "students": [
+    {
+      "id": "1",
+      "name": "Ayesha Khan",
+      "email": "ayesha.khan@example.com",
+      "phone": "0300-1234567",
+      "grade": "Grade 10",
+      "dob": "2010-04-12",
+      "status": "Active"
+    },
+    {
+      "id": "2",
+      "name": "Hamza Ali",
+      "email": "hamza.ali@example.com",
+      "phone": "0321-7654321",
+      "grade": "Grade 12",
+      "dob": "2008-08-22",
+      "status": "Active"
+    },
+    {
+      "id": "3",
+      "name": "Zainab Fatima",
+      "email": "zainab.f@example.com",
+      "phone": "0333-1122334",
+      "grade": "Grade 9",
+      "dob": "2011-11-05",
+      "status": "Pending"
+    },
+    {
+      "id": "4",
+      "name": "Bilal Ahmed",
+      "email": "bilal.ahmed@example.com",
+      "phone": "0345-9988776",
+      "grade": "Grade 11",
+      "dob": "2009-01-30",
+      "status": "Suspended"
+    },
+    {
+      "id": "5",
+      "name": "Sara Yusuf",
+      "email": "sara.y@example.com",
+      "phone": "0312-5556667",
+      "grade": "Grade 10",
+      "dob": "2010-09-18",
+      "status": "Active"
+    },
+    {
+      "name": "mujahid khan",
+      "email": "mujahid@12gmail.com",
+      "phone": "0309-8641219",
+      "grade": "Grade 10",
+      "dob": "2007-04-04",
+      "status": "Pending",
+      "id": "yYN55ijlRfQ"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
